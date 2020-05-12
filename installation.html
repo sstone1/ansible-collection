@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
   
   
 
@@ -35,7 +37,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="next" title="Installing the IBM Blockchain Platform" href="tutorials/installing.html" />
     <link rel="prev" title="IBM Blockchain Platform collection for Ansible" href="index.html" /> 
 </head>
 
@@ -86,12 +88,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-using-ansible-galaxy">Installing using Ansible Galaxy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-docker-image">Using a Docker image</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/installing.html">Installing the IBM Blockchain Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/building.html">Building a network</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roles.html">Roles</a></li>
 </ul>
 
             
@@ -160,6 +169,32 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>There are three options for installing the IBM Blockchain Platform collection for Ansible:</p>
+<ul>
+<li><p>Installing using Ansible Galaxy</p>
+<p>Ansible Galaxy is the package manager for Ansible. The collection is published to Ansible Galaxy on a regular basis: <a class="reference external" href="https://galaxy.ansible.com/ibm/blockchain_platform">https://galaxy.ansible.com/ibm/blockchain_platform</a></p>
+<p>In order to install using Ansible Galaxy, you must:</p>
+<ol class="arabic simple">
+<li><p>Install all of the software listed in <a class="reference internal" href="#requirements"><span class="std std-ref">Requirements</span></a>.</p></li>
+<li><p>Follow the instructions for <a class="reference internal" href="#installing-using-ansible-galaxy"><span class="std std-ref">Installing using Ansible Galaxy</span></a>.</p></li>
+</ol>
+</li>
+<li><p>Installing from source</p>
+<p>You may wish to install the collection from source if you cannot access Ansible Galaxy due to firewall or proxy issues, or if you need to install a version of the collection that has not yet been published.</p>
+<p>In order to install from source, you must:</p>
+<ol class="arabic simple">
+<li><p>Install all of the software listed in <a class="reference internal" href="#requirements"><span class="std std-ref">Requirements</span></a>.</p></li>
+<li><p>Follow the instructions for <a class="reference internal" href="#installing-from-source"><span class="std std-ref">Installing from source</span></a>.</p></li>
+</ol>
+</li>
+<li><p>Using a Docker image</p>
+<p>If you do not want to, or can not, install all of the required software for this collection on your system, you may wish to build a Docker image that contains all of the software required to run Ansible playbooks which use this collection.</p>
+<p>In order to build a Docker image, you must:</p>
+<ol class="arabic simple">
+<li><p>Follow the instructions for <a class="reference internal" href="#using-a-docker-image"><span class="std std-ref">Using a Docker image</span></a>.</p></li>
+</ol>
+</li>
+</ul>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>In order to use this Ansible collection, you must have the following pre-requisite software installed and available:</p>
@@ -204,6 +239,14 @@ If you install Python from the package manager for your operating system, you mu
 </pre></div>
 </div>
 </div></blockquote>
+<p><strong>OpenShift client for Python v0.10.3+</strong></p>
+<blockquote>
+<div><p>This Ansible collection uses the OpenShift client for Python to interact with your Red Hat OpenShift or Kubernetes cluster when installing the IBM Blockchain Platform console.</p>
+<p>You can install this SDK using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the package manager for Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openshift</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="installing-using-ansible-galaxy">
 <h2>Installing using Ansible Galaxy<a class="headerlink" href="#installing-using-ansible-galaxy" title="Permalink to this headline">¶</a></h2>
@@ -235,6 +278,17 @@ If you install Python from the package manager for your operating system, you mu
 </pre></div>
 </div>
 </div>
+<div class="section" id="using-a-docker-image">
+<h2>Using a Docker image<a class="headerlink" href="#using-a-docker-image" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to installing all of the requirements on your system, you can build a Docker image that contains all of the requirements.
+You can then use that Docker image to run your playbooks.</p>
+<p>An example Dockerfile can be found here: <a class="reference external" href="https://github.com/IBM-Blockchain/ansible-collection/blob/master/docker/Dockerfile">https://github.com/IBM-Blockchain/ansible-collection/blob/master/docker/Dockerfile</a></p>
+<p>The Dockerfile makes use of the Docker multi-stage build feature to reduce the size of the image built by 50%.</p>
+<p>Assuming you have built the Docker image and tagged it as <code class="docutils literal notranslate"><span class="pre">mydockerorg/ansible</span></code>, you can run a playbook by volume mounting it into the container:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">playbooks</span><span class="p">:</span><span class="o">/</span><span class="n">playbooks</span> <span class="n">mydockerorg</span><span class="o">/</span><span class="n">ansible</span> <span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">/</span><span class="n">playbooks</span><span class="o">/</span><span class="n">playbook</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -245,7 +299,7 @@ If you install Python from the package manager for your operating system, you mu
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials/installing.html" class="btn btn-neutral float-right" title="Installing the IBM Blockchain Platform" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="IBM Blockchain Platform collection for Ansible" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
   
   
 
@@ -84,6 +86,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/installing.html">Installing the IBM Blockchain Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/building.html">Building a network</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Modules</a><ul class="current">
@@ -94,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="channel_config.html">channel_config – Manage the configuration for a Hyperledger Fabric channel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="channel_member.html">channel_member – Manage a member for a Hyperledger Fabric channel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="channel_policy.html">channel_policy – Manage a policy for a Hyperledger Fabric channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="connection_profile.html">connection_profile – Manage a connection profile for a Hyperledger Fabric network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="consortium_member.html">consortium_member – Manage a consortium member for a Hyperledger Fabric ordering service</a></li>
 <li class="toctree-l3"><a class="reference internal" href="enrolled_identity.html">enrolled_identity – Manage an enrolled Hyperledger Fabric identity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="enrolled_identity_info.html">enrolled_identity_info – Get information about an enrolled Hyperledger Fabric identity</a></li>
@@ -116,10 +124,12 @@
 <li class="toctree-l3"><a class="reference internal" href="peer.html">peer – Manage a Hyperledger Fabric peer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="peer_channel.html">peer_channel – Manage the list of channels joined by a Hyperledger Fabric peer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="peer_info.html">peer_info – Get information about a Hyperledger Fabric peer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="registered_identity.html">registered_identity – Manage a registered Hyperledger Fabric identity</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../roles.html">Roles</a></li>
 </ul>
 
             
@@ -248,7 +258,7 @@
 <dt>enrollment_secret (optional, str, None)</dt><dd><p>The enrollment secret, or password, of an identity registered on the certificate authority for this ordering service.</p>
 <p>Only required when <em>config</em> is not specified.</p>
 </dd>
-<dt>admin_certificates (optional, list, None)</dt><dd><p>The list of administrator certificates for this ordering service.</p>
+<dt>admins (optional, list, None)</dt><dd><p>The list of administrator certificates for this ordering service.</p>
 <p>Administrator certificates must be supplied as base64 encoded PEM files.</p>
 <p>Only required when <em>config</em> is not specified.</p>
 </dd>
@@ -302,7 +312,7 @@
 </dd>
 </dl>
 </dd>
-<dt>hsm (optional, dict, None)</dt><dd><p>The PKCS</p>
+<dt>hsm (optional, dict, None)</dt><dd><p>The PKCS #11 compliant HSM configuration to use for the ordering service.</p>
 <p>See the IBM Blockchain Platform documentation for more information: <a class="reference external" href="https://cloud.ibm.com/docs/blockchain?topic=blockchain-ibp-console-adv-deployment#ibp-console-adv-deployment-cfg-hsm">https://cloud.ibm.com/docs/blockchain?topic=blockchain-ibp-console-adv-deployment#ibp-console-adv-deployment-cfg-hsm</a></p>
 <dl class="simple">
 <dt>pkcs11endpoint (optional, str, None)</dt><dd><p>The HSM proxy endpoint that the ordering service should use.</p>
@@ -312,6 +322,11 @@
 <dt>pin (optional, str, None)</dt><dd><p>The HSM pin that the ordering service should use.</p>
 </dd>
 </dl>
+</dd>
+<dt>zone (optional, list, None)</dt><dd><p>The Kubernetes zones for this ordering service.</p>
+<p>If specified, you must provide a Kubernetes zone for each ordering service node in the ordering service, as defined by <em>nodes</em>.</p>
+<p>If you do not specify a Kubernetes zone, and multiple Kubernetes zones are available, then a random Kubernetes zone will be selected for you.</p>
+<p>See the Kubernetes documentation for more information: <a class="reference external" href="https://kubernetes.io/docs/setup/best-practices/multiple-zones/">https://kubernetes.io/docs/setup/best-practices/multiple-zones/</a></p>
 </dd>
 <dt>wait_timeout (optional, integer, 60)</dt><dd><p>The timeout, in seconds, to wait until the ordering service is available.</p>
 </dd>
