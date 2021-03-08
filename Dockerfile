@@ -15,10 +15,11 @@ RUN microdnf install python38 shadow-utils \
 # In the second stage, install all the development packages, install the Python dependencies,
 # and then install the Ansible collection.
 FROM base AS builder
-RUN microdnf install gcc gzip python38-devel tar \
+RUN microdnf install gcc gcc-c++ gzip libffi-devel python38-devel tar \
     && microdnf clean all
 USER ibp-user
-ENV PATH=/home/ibp-user/.local/bin:$PATH
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH=/home/ibp-user/.local/bin:/home/ibp-user/.cargo/bin:$PATH
 RUN pip3.8 install --user -U 'ansible>=2.9,<2.10' fabric-sdk-py python-pkcs11 'openshift==0.11.2' semantic_version \
     && chgrp -R root /home/ibp-user/.local \
     && chmod -R g=u /home/ibp-user/.local

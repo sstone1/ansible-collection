@@ -1,0 +1,14 @@
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+---
+language: minimal
+services:
+  - docker
+os: linux
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
+script: docker build -t ibmcom/ibp-ansible:latest .
